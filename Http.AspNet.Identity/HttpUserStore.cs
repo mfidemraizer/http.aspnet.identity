@@ -5,6 +5,7 @@
     using System.Configuration;
     using System.Diagnostics.Contracts;
     using System.Net.Http;
+    using System.Net.Http.Headers;
 
     public partial class HttpUserStore<TUser> : IUserStore<TUser>
         where TUser : class, IUser, IIdentityUser
@@ -24,9 +25,9 @@
         {
             get
             {
-                string value = ConfigurationManager.AppSettings["aspnet.identity.http.userResourceUri"];
+                string value = ConfigurationManager.AppSettings["aspnet:identity:http:userResourceUri"];
 
-                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet.identity.http.userResourceUri' setting not present or empty");
+                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet:identity:http:userResourceUri' setting not present or empty");
 
                 return value;
             }
@@ -36,9 +37,81 @@
         {
             get
             {
-                string value = ConfigurationManager.AppSettings["aspnet.identity.http.userRoleResourceUri"];
+                string value = ConfigurationManager.AppSettings["aspnet:identity:http:userRoleResourceUri"];
 
-                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet.identity.http.userRoleResourceUri' setting not present or empty");
+                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet:identity:http:userRoleResourceUri' setting not present or empty");
+
+                return value;
+            }
+        }
+
+        private string UserSettingsResourceUri
+        {
+            get
+            {
+                string value = ConfigurationManager.AppSettings["aspnet:identity:http:userSettingsResourceUri"];
+
+                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet:identity:http:userSettingsResourceUri' setting not present or empty");
+
+                return value;
+            }
+        }
+
+        private string UserPropertiesResourceUri
+        {
+            get
+            {
+                string value = ConfigurationManager.AppSettings["aspnet:identity:http:userPropertiesResourceUri"];
+
+                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet:identity:http:userPropertiesResourceUri' setting not present or empty");
+
+                return value;
+            }
+        }
+
+        private string UserPhoneNumberStoreResourceUri
+        {
+            get
+            {
+                string value = ConfigurationManager.AppSettings["aspnet:identity:http:userPhoneNumberStoreResourceUri"];
+
+                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet:identity:http:userPhoneNumberStoreResourceUri' setting not present or empty");
+
+                return value;
+            }
+        }
+
+        private string UserEmailStoreResourceUri
+        {
+            get
+            {
+                string value = ConfigurationManager.AppSettings["aspnet:identity:http:userEmailStoreResourceUri"];
+
+                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet:identity:http:userEmailStoreResourceUri' setting not present or empty");
+
+                return value;
+            }
+        }
+
+        private string UserLoginStoreResourceUri
+        {
+            get
+            {
+                string value = ConfigurationManager.AppSettings["aspnet:identity:http:userLoginStoreResourceUri"];
+
+                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet:identity:http:userLoginStoreResourceUri' setting not present or empty");
+
+                return value;
+            }
+        }
+
+        private string UserClaimStoreResourceUri
+        {
+            get
+            {
+                string value = ConfigurationManager.AppSettings["aspnet:identity:http:userClaimStoreResourceUri"];
+
+                Contract.Assert(!string.IsNullOrEmpty(value), "'aspnet:identity:http:userClaimStoreResourceUri' setting not present or empty");
 
                 return value;
             }

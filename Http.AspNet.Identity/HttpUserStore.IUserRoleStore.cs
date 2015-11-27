@@ -2,13 +2,19 @@
 {
     using Microsoft.AspNet.Identity;
     using System.Collections.Generic;
+    using System.Diagnostics.Contracts;
     using System.Net.Http;
     using System.Threading.Tasks;
 
     public partial class HttpUserStore<TUser> : IUserRoleStore<TUser>
     {
         public Task AddToRoleAsync(TUser user, string roleName)
-            => HttpClient.PutAsJsonAsync
+        {
+            Contract.Requires(user != null, "Given user must be a non-null reference");
+            Contract.Requires(!string.IsNullOrEmpty(roleName), "Given role name must not be null or empty");
+            Contract.Ensures(Contract.Result<Task>() != null);
+
+            return HttpClient.PutAsJsonAsync // for example: /users/{userId}/roles
             (
                 UserRoleResourceUri.Replace
                 (
@@ -17,10 +23,14 @@
                 ),
                 roleName
             );
+        }
 
         public async Task<IList<string>> GetRolesAsync(TUser user)
         {
-            HttpResponseMessage response = await HttpClient.GetAsync
+            Contract.Requires(user != null, "Given user must be a non-null reference");
+            Contract.Ensures(Contract.Result<Task<IList<string>>>() != null);
+
+            HttpResponseMessage response = await HttpClient.GetAsync // for example: /users/{userId}/roles
             (
                 UserRoleResourceUri.Replace
                 (
@@ -34,6 +44,10 @@
 
         public async Task<bool> IsInRoleAsync(TUser user, string roleName)
         {
+            Contract.Requires(user != null, "Given user must be a non-null reference");
+            Contract.Requires(!string.IsNullOrEmpty(roleName), "Given role name must not be null or empty");
+            Contract.Ensures(Contract.Result<Task<bool>>() != null);
+
             HttpRequestMessage request = new HttpRequestMessage
             (
                 HttpMethod.Head,
@@ -48,13 +62,19 @@
                 )
             );
 
+            // for example: /users/{userId}/roles/{roleName}
             HttpResponseMessage response = await HttpClient.SendAsync(request);
 
             return response.IsSuccessStatusCode;
         }
 
+
         public Task RemoveFromRoleAsync(TUser user, string roleName)
         {
+            Contract.Requires(user != null, "Given user must be a non-null reference");
+            Contract.Requires(!string.IsNullOrEmpty(roleName), "Given role name must not be null or empty");
+            Contract.Ensures(Contract.Result<Task>() != null);
+
             HttpRequestMessage request = new HttpRequestMessage
             (
                 HttpMethod.Delete,
@@ -69,6 +89,7 @@
                 )
             );
 
+            // for example: /users/{userId}/roles/{roleName}
             return HttpClient.SendAsync(request);
         }
     }

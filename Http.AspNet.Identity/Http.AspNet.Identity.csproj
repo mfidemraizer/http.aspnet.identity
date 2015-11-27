@@ -46,10 +46,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication.cs" />
+    <Compile Include="HttpRequestResponseHandler.cs" />
     <Compile Include="HttpUserStore.cs" />
+    <Compile Include="HttpUserStore.IUserClaimStore.cs" />
+    <Compile Include="HttpUserStore.IUserEmailStore.cs" />
+    <Compile Include="HttpUserStore.IUserLockoutStore.cs" />
+    <Compile Include="HttpUserStore.IUserLoginStore.cs" />
+    <Compile Include="HttpUserStore.IUserPasswordStore.cs" />
+    <Compile Include="HttpUserStore.IUserPhoneNumberStore.cs" />
+    <Compile Include="HttpUserStore.IUserSecurityStampStore.cs" />
+    <Compile Include="HttpUserStore.IUserTwoFactorStore.cs" />
     <Compile Include="HttpUserStore.IUserRoleStore.cs" />
     <Compile Include="HttpUserStore.IUserStore.cs" />
     <Compile Include="IdentityUser.cs" />
+    <Compile Include="IdentityUserClaim.cs" />
     <Compile Include="IIdentityUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
