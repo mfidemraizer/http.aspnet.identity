@@ -21,7 +21,7 @@
                     "{userId}",
                     ((IIdentityUser)user).Id
                 ),
-                roleName
+                new { roleName = roleName }
             );
         }
 

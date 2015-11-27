@@ -52,12 +52,18 @@
             return HttpClient.SendAsync(request);
         }
 
-        public Task<TUser> FindAsync(UserLoginInfo login)
+        public async Task<TUser> FindAsync(UserLoginInfo login)
         {
             Contract.Requires(login != null, "Given login must be a non-null reference");
             Contract.Ensures(Contract.Result<Task<TUser>>() != null);
 
-            return FindByIdAsync(login.ProviderKey);
+            // for example: /users/login:{providerKey}
+            HttpResponseMessage response = await HttpClient.GetAsync
+            (
+                $"login:{login.ProviderKey}"
+            );
+
+            return await response.Content.ReadAsAsync<TUser>();
         }
     }
 }

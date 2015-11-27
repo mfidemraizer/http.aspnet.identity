@@ -15,18 +15,18 @@
             HttpRequestMessage request = new HttpRequestMessage
             (
                 HttpMethod.Head,
-                UserSettingsResourceUri.Replace
+                UserPropertiesResourceUri.Replace
                 (
                     "{userId}",
                     ((IIdentityUser)user).Id
                 ).Replace
                 (
                     "{settingId}",
-                    "twofactorenabled"
+                    "twofactorauth.enabled"
                 )
             );
 
-            // for example: /users/{userId}/settings/twofactorenabled
+            // for example: /users/{userId}/properties/twofactorauth.enabled
             HttpResponseMessage response = await HttpClient.SendAsync(request);
 
             return response.IsSuccessStatusCode;
@@ -38,10 +38,10 @@
             Contract.Requires(user != null, "Given user must be a non-null reference");
             Contract.Ensures(Contract.Result<Task>() != null);
 
-            // for example: /users/{userId}/settings/twofactorenabled
+            // for example: /users/{userId}/properties/twofactorauth.enabled
             return HttpClient.PutAsJsonAsync
             (
-                UserSettingsResourceUri.Replace("{userId}", ((IIdentityUser)user).Id).Replace("{settingId}", "twofactorenabled"),
+                UserPropertiesResourceUri.Replace("{userId}", ((IIdentityUser)user).Id).Replace("{settingId}", "twofactorenabled"),
                 new { enabled = enabled }
             );
         }
