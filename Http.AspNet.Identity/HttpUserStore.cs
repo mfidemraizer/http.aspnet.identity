@@ -5,7 +5,6 @@
     using System.Configuration;
     using System.Diagnostics.Contracts;
     using System.Net.Http;
-    using System.Net.Http.Headers;
 
     public partial class HttpUserStore<TUser> : IUserStore<TUser>
         where TUser : class, IUser, IIdentityUser
